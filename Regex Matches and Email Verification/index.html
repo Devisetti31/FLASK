@@ -1,0 +1,135 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex and Email Matcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            vertical-align: top;
+            width: 45%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2, h3, p {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #dff0d8;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Regex and Email Matcher</h1>
+
+    
+    <form action="/regex_results" method="post">
+        <label for="test_string">Test String:</label>
+        <input type="text" id="test_string" name="test_string" required>
+        <br>
+        <label for="regex_pattern">Regex Pattern:</label>
+        <input type="text" id="regex_pattern" name="regex_pattern" required>
+        <br>
+        <button type="submit">Match Regex</button>
+    </form>
+
+
+    <form action="/email_validation" method="post" >
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <br>
+        <button type="submit">Validate Email</button>
+    </form>
+
+    {% if test_string and regex_pattern %}
+        <h2>Regex Matcher</h2>
+        {% if regex_matches %}
+            <h4>Regex Matches</h4>
+            <ul>
+                {% for match in regex_matches %}
+                    <li>{{ match }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No regex matches found.</p>
+        {% endif %}
+    {% endif %}
+
+    {% if email %}
+        <h2>Email Validation</h2>
+        <p>Email: {{ email }}</p>
+        {% if is_valid_email %}
+            <p style="color: green;">Valid Email Address</p>
+        {% else %}
+            <p style="color: red;">Invalid Email Address</p>
+        {% endif %}
+    {% endif %}
+
+</body>
+
+</html>
